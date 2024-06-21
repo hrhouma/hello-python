@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/hrhouma/hello-python'
+                git clone 'https://github.com/hrhouma/hello-python'
             }
         }
         stage('Build') {
