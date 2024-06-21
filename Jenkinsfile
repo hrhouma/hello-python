@@ -1,12 +1,24 @@
 pipeline {
     agent any
+    environment {
+        PATH = "${env.PATH}:/usr/bin/python3"
+    }
     stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/hrhouma/hello-python'
+            }
+        }
         stage('Build') {
             steps {
                 script {
-                    // Choisissez la commande en fonction de votre script
-                    sh 'python hello.py' // Pour Python
-                    // sh 'javac HelloWorld.java && java HelloWorld' // Pour Java
+                    if (isUnix()) {
+                        sh 'echo "Running on Unix"'
+                        // Add your Unix-specific build commands here
+                    } else {
+                        bat 'echo "Running on Windows"'
+                        // Add your Windows-specific build commands here
+                    }
                 }
             }
         }
